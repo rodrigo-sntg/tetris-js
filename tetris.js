@@ -1,10 +1,10 @@
 export default function createGame(){
     const canvas = document.getElementById('tetris')
-    const context = canvas.getContext('2d')
+    // const context = canvas.getContext('2d')
 
     const canvasNextPiece = document.getElementById('nextPiece')
     const contextNextPiece = canvasNextPiece.getContext('2d')
-    context.scale(20,20);
+    // context.scale(20,20);
     contextNextPiece.scale(20,20);
     const pieces = 'ILJOTSZ';
     let nextPiece = pieces[pieces.length * Math.random() | 0];
@@ -107,14 +107,6 @@ export default function createGame(){
         }
     }
 
-    function draw(){
-        context.fillStyle = '#000';
-        context.fillRect(0,0,canvas.width, canvas.height);
-
-        drawMatrix(arena, {x:0, y:0}, context);
-        drawMatrix(player.matrix, player.pos, context);
-    }
-
     function drawNextPiece(matrix){
         contextNextPiece.fillStyle = '#000';
         contextNextPiece.fillRect(0,0,canvasNextPiece.width, canvasNextPiece.height);
@@ -149,6 +141,19 @@ export default function createGame(){
         })
     }
 
+    function drawMatrix(matrix, offset, context) {
+        matrix.forEach((row,y) => {
+            row.forEach((value,x) => {
+                if(value !== 0){
+                    context.fillStyle = colors[value];
+                    context.fillRect(x + offset.x,
+                                    y + offset.y, 
+                                    1,1)
+                }
+            })    
+        })
+    }
+
     function merge(arena, player){
         player.matrix.forEach((row,y) => {
             row.forEach((value,x) => {
@@ -159,12 +164,19 @@ export default function createGame(){
         })
     }
 
-
+    
+    
     let dropCounter = 0;
     let dropInterval = 1000;
-
     let lastTime = 0;
+    
+    function addDropCounter(count){
+        this.dropCounter += count;
+    }
 
+    function setLastTime(time){
+        this.lastTime = time;
+    }
     function playerDrop(){
         player.pos.y++;
         if(collide(arena, player)){
@@ -174,7 +186,7 @@ export default function createGame(){
             arenaSweep();
             updateScore();
         }
-        dropCounter = 0;
+        this.dropCounter = 0;
     }
 
 
@@ -239,18 +251,6 @@ export default function createGame(){
             matrix.reverse();
     }
 
-    function update(time = 0) {
-        const deltaTime = time - lastTime;
-        lastTime = time;
-        dropCounter += deltaTime;
-        if(dropCounter > dropInterval)
-            playerDrop();
-
-        draw();
-        requestAnimationFrame(update);
-    }
-
-
     function updateScore(){
         document.getElementById('score').innerText = player.score;
     }
@@ -264,9 +264,9 @@ export default function createGame(){
         matrix: null,
         score: 0
     }
+    
     playerReset();
     updateScore();
-    update();
 
 
     function movePlayer(command){
@@ -297,40 +297,16 @@ export default function createGame(){
 
     
 
-
-    function createKeyboardListener(){
-        const state = {
-            observers:[]
-        }
-
-        function subscribe(observerFunction){
-            state.observers.push(observerFunction)
-        }
-
-        function notifyAll(command){
-            console.log(`Notifying ${state.observers.length} observers`)
-
-            for(const observerFunction of state.observers)
-                observerFunction(command)
-        }
-
-        document.addEventListener('keydown', handleKeydown)
-
-        function handleKeydown(event){
-            const command = event.code;
-            
-            notifyAll(command)
-            
-        }
-
-        return {
-            subscribe
-        }
-    }
-
-
     return {
         movePlayer,
-        player
+        arena,
+        player,
+        dropCounter,
+        dropInterval,
+        lastTime,
+        playerDrop,
+        drawMatrix,
+        setLastTime,
+        addDropCounter
     }
 }

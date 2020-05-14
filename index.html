@@ -9,10 +9,21 @@
     <script type="module">
         import createGame from './tetris.js'
         import createKeyboardListener from './keyboard-listener.js'
+        import renderScreen from './render-screen.js'
         
         const game = createGame()
         const keyboardListener = createKeyboardListener(document)
         keyboardListener.subscribe(game.movePlayer)
+
+        const canvas = document.getElementById('tetris')
+        const context = canvas.getContext('2d')
+
+        const canvasNextPiece = document.getElementById('nextPiece')
+        const contextNextPiece = canvasNextPiece.getContext('2d')
+        context.scale(20,20);
+        contextNextPiece.scale(20,20);
+
+        renderScreen(canvas, game, requestAnimationFrame, 0)
 
     </script>
     
