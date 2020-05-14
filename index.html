@@ -7,12 +7,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="css/index.css">
     <script type="module">
-        // import createGame from '/js/tetrisController.js'
-        // import createKeyboardListener from '/js/keyboard-listener.js'
         
-        // import renderScreen from '/js/render-screen.js'
-        
-        // const game = createGame()
         const game = new Tetris();
         
         const keyboardListener = new KeyboardListener(document);
@@ -55,11 +50,11 @@
 
     </div>
     <script src='./js/app/models/Position.js'></script>
-    <script src='./js/KeyboardListener.js'></script>
+    <script src='./js/app/listeners/KeyboardListener.js'></script>
     <script src='./js/app/models/Timer.js'></script>
     <script src='./js/app/models/Player.js'></script>
     <script src='./js/app/models/Arena.js'></script>
-    <script src='./js/TetrisController.js'></script>
+    <script src='./js/app/controllers/TetrisController.js'></script>
     <script src='./js/app/views/ViewRender.js'></script>
 
 </body>

@@ -1,3 +1,7 @@
 # Tetris JS
 
-To run the program, just clone the repository and execute it with `npx serve`
+Just a simple Tetris game made with pure javascript and HTML.
+
+## How To Run
+
+Just clone the repo and open the HTML file. Simple like that!
