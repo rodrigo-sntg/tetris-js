@@ -3,10 +3,10 @@ export default function renderScreen(screen, game, requestAnimationFrame, time) 
     context.fillStyle = 'white'
     context.clearRect(0, 0, 10, 10)
 
-    const deltaTime = time - game.lastTime;
+    const deltaTime = time - game.timer.lastTime;
     game.setLastTime(time)
     game.addDropCounter(deltaTime)
-    if(game.dropCounter > game.dropInterval)
+    if(game.timer.dropCounter > game.timer.dropInterval)
         game.playerDrop();
 
     draw();

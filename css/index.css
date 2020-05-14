@@ -1,4 +1,5 @@
 body {
+    overflow: hidden;
     background: #202028;
     color: #fff;
     font-family: sans-serif;
@@ -9,6 +10,11 @@ body {
 canvas{
     border: solid .2em #fff;
     height: 90ev;
+}
+
+h3 {
+  margin: 0;
+  margin-bottom: 10px;
 }
 
 

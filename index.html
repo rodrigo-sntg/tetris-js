@@ -5,25 +5,32 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Tetris JS Game</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/index.css">
     <script type="module">
-        import createGame from './tetris.js'
-        import createKeyboardListener from './keyboard-listener.js'
-        import renderScreen from './render-screen.js'
+        // import createGame from '/js/tetrisController.js'
+        // import createKeyboardListener from '/js/keyboard-listener.js'
         
-        const game = createGame()
-        const keyboardListener = createKeyboardListener(document)
-        keyboardListener.subscribe(game.movePlayer)
+        // import renderScreen from '/js/render-screen.js'
+        
+        // const game = createGame()
+        const game = new Tetris();
+        
+        const keyboardListener = new KeyboardListener(document);
 
+        keyboardListener.subscribe(game.movePlayer, game)
+        
         const canvas = document.getElementById('tetris')
         const context = canvas.getContext('2d')
-
+        
         const canvasNextPiece = document.getElementById('nextPiece')
         const contextNextPiece = canvasNextPiece.getContext('2d')
+        
+        
+        const viewRender = new ViewRender(canvas, canvasNextPiece, game );
         context.scale(20,20);
         contextNextPiece.scale(20,20);
 
-        renderScreen(canvas, game, requestAnimationFrame, 0)
+        viewRender.renderScreen(requestAnimationFrame, 0)
 
     </script>
     
@@ -47,7 +54,14 @@
         </div>
 
     </div>
-    <script src='tetris.js'></script>
+    <script src='./js/app/models/Position.js'></script>
+    <script src='./js/KeyboardListener.js'></script>
+    <script src='./js/app/models/Timer.js'></script>
+    <script src='./js/app/models/Player.js'></script>
+    <script src='./js/app/models/Arena.js'></script>
+    <script src='./js/TetrisController.js'></script>
+    <script src='./js/app/views/ViewRender.js'></script>
+
 </body>
 </html>
 

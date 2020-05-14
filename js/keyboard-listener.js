@@ -4,15 +4,19 @@ export default function createKeyboardListener(document) {
         observers:[]
     }
 
-    function subscribe(observerFunction){
-        state.observers.push(observerFunction)
+    function subscribe(observerFunction, game){
+        let observer = {
+            function: observerFunction,
+            game: game
+        }
+        state.observers.push(observer)
     }
 
     function notifyAll(command){
         console.log(`Notifying ${state.observers.length} observers`)
 
         for(const observerFunction of state.observers)
-            observerFunction(command)
+            observerFunction.function(command, observerFunction.game)
     }
 
     document.addEventListener('keydown', handleKeydown)
