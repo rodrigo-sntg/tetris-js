@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Tetris JS Game</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="index.css">
+    <script type="module">
+        import createGame from './tetris.js'
+        import createKeyboardListener from './keyboard-listener.js'
+        
+        const game = createGame()
+        const keyboardListener = createKeyboardListener(document)
+        keyboardListener.subscribe(game.movePlayer)
+
+    </script>
+    
+</head>
+<body>
+    <h3>Tetris</h3>
+    
+    <div style="width: 450px;margin: 0 auto;">
+        <div style="float: left;">
+
+            <canvas id="tetris" width="240" height="400"></canvas>
+        </div>
+
+        <div style="float: right">
+            <canvas id="nextPiece" width="120" height="120"></canvas>
+
+            <div style="display: flex;">
+                <label for="">Pontos:  </label><div style="margin-left: 10px;" id="score"></div>
+            </div>
+
+        </div>
+
+    </div>
+    <script src='tetris.js'></script>
+</body>
+</html>
+
+
+
+
