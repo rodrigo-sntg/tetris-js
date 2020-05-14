@@ -187,7 +187,6 @@ export default function createGame(){
     
 
     function playerReset(){
-        // player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]); // using bitwise comparator to floor number
         if(!nextPiece)
             nextPiece = pieces[pieces.length * Math.random() | 0];
         
@@ -259,15 +258,6 @@ export default function createGame(){
 
     const arena = createMatrix(12,20);
 
-    // const game = createGame();
-    // const keyboardListener = createKeyboardListener();
-    // keyboardListener.subscribe(game.movePlayer)
-
-// User actions on key press mapping
-
-
-
-
     
     const player = {
         pos: {x: 0, y:0},
@@ -329,7 +319,6 @@ export default function createGame(){
         function handleKeydown(event){
             const command = event.code;
             
-            // game.movePlayer(command)
             notifyAll(command)
             
         }
